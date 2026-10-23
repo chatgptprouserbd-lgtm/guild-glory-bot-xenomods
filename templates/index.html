@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEXGOJO — Command Center</title>
+<title>XenoMods — XenoMods & Team Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -53,6 +53,7 @@ button{font-family:inherit;}
 .btn:hover{background:var(--panel-3);border-color:var(--a);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,240,255,.2);}
 .btn-primary{background:linear-gradient(135deg,var(--a),var(--b));color:#03040a;border:0;box-shadow:0 6px 24px rgba(0,240,255,.35);}
 .btn-success{background:linear-gradient(135deg,var(--ok),#3fd130);color:#001a08;border:0;box-shadow:0 6px 24px rgba(124,255,74,.35);}
+.btn-warning{background:linear-gradient(135deg,var(--warn),#ff9800);color:#1a0f00;border:0;box-shadow:0 6px 24px rgba(255,184,77,.35);}
 
 /* STATS GRID */
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px;}
@@ -127,10 +128,10 @@ select.input{width:auto;cursor:pointer;}
 .log-msg.warning{color:var(--warn);}
 .log-msg.error{color:var(--bad);}
 
-/* MODALS - FIXED DISPLAY */
+/* MODALS */
 .overlay{position:fixed;inset:0;z-index:999;background:rgba(3,4,10,0.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;}
 .overlay.active{display:flex !important;}
-.modal{position:relative;width:100%;max-width:480px;background:var(--panel);border:1px solid var(--border-hi);border-radius:var(--r);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden;}
+.modal{position:relative;width:100%;max-width:540px;background:var(--panel);border:1px solid var(--border-hi);border-radius:var(--r);box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden;max-height:92vh;overflow-y:auto;}
 .modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
 .modal-head h3{font-family:var(--display);font-size:14px;display:flex;align-items:center;gap:10px;}
 .modal-head h3 i{color:var(--a);}
@@ -145,6 +146,7 @@ select.input{width:auto;cursor:pointer;}
 .toast.ok{border-left-color:var(--ok);}.toast.err{border-left-color:var(--bad);}.toast.warn{border-left-color:var(--warn);}
 .empty{padding:40px 20px;text-align:center;color:var(--txt-3);grid-column:1 / -1;}
 .empty i{font-size:36px;color:var(--border-hi);display:block;margin-bottom:10px;}
+.player-box{background:var(--void);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -156,7 +158,7 @@ select.input{width:auto;cursor:pointer;}
     <div class="brand">
       <div class="logo"><span><b>C</b></span></div>
       <div class="brand-info">
-        <div class="glitch">COMMAND CENTER</div>
+        <div class="glitch">XenoMods Terminal</div>
         <div class="tagline">
           <span>Level Up Engine</span>
           <span class="pill live" id="conn-pill"><i class="fa-solid fa-circle"></i><span id="conn-text">LIVE</span></span>
@@ -166,7 +168,8 @@ select.input{width:auto;cursor:pointer;}
     </div>
     <div class="actions">
       <button class="btn" onclick="fetchStats(true)"><i class="fa-solid fa-rotate"></i> Refresh</button>
-      <button class="btn btn-success" onclick="openTeamModal()"><i class="fa-solid fa-users-gear"></i> Create Team</button>
+      <button class="btn btn-warning" onclick="openTeamBuilderModal()"><i class="fa-solid fa-users"></i> Add Bot Team</button>
+      <button class="btn btn-success" onclick="openClanModal()"><i class="fa-solid fa-shield-halved"></i> Add New Clan</button>
       <button class="btn btn-primary" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> Add Account</button>
     </div>
   </div>
@@ -251,24 +254,92 @@ select.input{width:auto;cursor:pointer;}
   </div>
 </div>
 
-<!-- TEAM MODAL -->
-<div class="overlay" id="team-modal">
-  <div class="modal">
-    <div class="modal-head"><h3><i class="fa-solid fa-users-gear"></i> CREATE TEAM (4 BOTS)</h3><button class="icon-btn" onclick="closeTeamModal()"><i class="fa-solid fa-xmark"></i></button></div>
+<!-- ADD BOT TEAM MODAL (NEW) -->
+<div class="overlay" id="team-builder-modal">
+  <div class="modal" style="max-width: 650px;">
+    <div class="modal-head"><h3><i class="fa-solid fa-users"></i> ADD BOT TEAM (4 PLAYERS)</h3><button class="icon-btn" onclick="closeTeamBuilderModal()"><i class="fa-solid fa-xmark"></i></button></div>
     <div class="modal-body">
-      <form onsubmit="submitCreateTeam(event)">
-        <div class="field"><label>Region</label>
-          <select class="input" id="team-region">
-            <option value="BD">BD — Bangladesh</option>
-            <option value="IND">IND — India</option>
-            <option value="ID">ID — Indonesia</option>
-            <option value="SG">SG — Singapore</option>
+      <form onsubmit="submitBotTeam(event)">
+        <div class="field">
+          <label>Team Name (Random/Custom)</label>
+          <input type="text" class="input" id="team-name" placeholder="e.g. Team_RBC_Alpha" autocomplete="off">
+        </div>
+        
+        <div class="field">
+          <label>Select Team Leader</label>
+          <select class="input" id="team-leader">
+            <option value="1">Player 1 (Leader)</option>
+            <option value="2">Player 2 (Leader)</option>
+            <option value="3">Player 3 (Leader)</option>
+            <option value="4">Player 4 (Leader)</option>
           </select>
         </div>
-        <div class="field"><label>Clan ID</label><input type="text" class="input" id="team-clan" value="3105331459" placeholder="Enter Clan ID"></div>
+
+        <!-- Player 1 -->
+        <div class="player-box">
+          <div class="field" style="margin-bottom:8px;"><label>Player 1 (UID & Password OR Token)</label></div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <input type="text" class="input" id="p1-uid" placeholder="Player 1 UID">
+            <input type="text" class="input" id="p1-pass" placeholder="Password / Token">
+          </div>
+        </div>
+
+        <!-- Player 2 -->
+        <div class="player-box">
+          <div class="field" style="margin-bottom:8px;"><label>Player 2</label></div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <input type="text" class="input" id="p2-uid" placeholder="Player 2 UID">
+            <input type="text" class="input" id="p2-pass" placeholder="Password / Token">
+          </div>
+        </div>
+
+        <!-- Player 3 -->
+        <div class="player-box">
+          <div class="field" style="margin-bottom:8px;"><label>Player 3</label></div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <input type="text" class="input" id="p3-uid" placeholder="Player 3 UID">
+            <input type="text" class="input" id="p3-pass" placeholder="Password / Token">
+          </div>
+        </div>
+
+        <!-- Player 4 -->
+        <div class="player-box">
+          <div class="field" style="margin-bottom:8px;"><label>Player 4</label></div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <input type="text" class="input" id="p4-uid" placeholder="Player 4 UID">
+            <input type="text" class="input" id="p4-pass" placeholder="Password / Token">
+          </div>
+        </div>
+
         <div class="modal-foot">
-          <button type="button" class="btn" onclick="closeTeamModal()">Cancel</button>
-          <button type="submit" class="btn btn-success"><i class="fa-solid fa-bolt"></i> Generate Team</button>
+          <button type="button" class="btn" onclick="closeTeamBuilderModal()">Cancel</button>
+          <button type="submit" class="btn btn-warning"><i class="fa-solid fa-users"></i> Create & Launch Team</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ADD NEW CLAN MODAL (NEW) -->
+<div class="overlay" id="clan-modal">
+  <div class="modal">
+    <div class="modal-head"><h3><i class="fa-solid fa-shield-halved"></i> ADD NEW CLAN & ASSIGN TEAM</h3><button class="icon-btn" onclick="closeClanModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body">
+      <form onsubmit="submitNewClan(event)">
+        <div class="field">
+          <label>Clan UID / ID</label>
+          <input type="text" class="input" id="clan-uid" placeholder="Enter Guild/Clan UID" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Select Team to Join Guild</label>
+          <select class="input" id="clan-team-select">
+            <option value="all">All Available Teams</option>
+            <option value="default_team">Default Squad</option>
+          </select>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn" onclick="closeClanModal()">Cancel</button>
+          <button type="submit" class="btn btn-success"><i class="fa-solid fa-play"></i> Start Team in Guild</button>
         </div>
       </form>
     </div>
@@ -294,8 +365,16 @@ function toast(msg, kind='ok'){
 // Modal Toggle Functions
 function openAddModal(){ $('#add-modal').classList.add('active'); }
 function closeAddModal(){ $('#add-modal').classList.remove('active'); }
-function openTeamModal(){ $('#team-modal').classList.add('active'); }
-function closeTeamModal(){ $('#team-modal').classList.remove('active'); }
+
+function openTeamBuilderModal(){ 
+  // Generate random team name automatically
+  $('#team-name').value = 'Team_RBC_' + Math.floor(1000 + Math.random() * 9000);
+  $('#team-builder-modal').classList.add('active'); 
+}
+function closeTeamBuilderModal(){ $('#team-builder-modal').classList.remove('active'); }
+
+function openClanModal(){ $('#clan-modal').classList.add('active'); }
+function closeClanModal(){ $('#clan-modal').classList.remove('active'); }
 
 function toggleFormType(){
   const t = $('#acc-type').value;
@@ -314,15 +393,74 @@ async function submitAddAccount(e){
   } else { toast(data.error || 'Failed to add account', 'err'); }
 }
 
-async function submitCreateTeam(e){
+// Submit Bot Team (4 Players + Leader + Team Name)
+async function submitBotTeam(e){
   e.preventDefault();
-  const region = $('#team-region').value;
-  const clan_id = $('#team-clan').value.trim();
-  const res = await fetch('/api/create_team', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({region, clan_id, count:4})});
-  const data = await res.json().catch(()=>({}));
-  closeTeamModal();
-  toast('Team creation process started!');
-  setTimeout(fetchStats, 3000);
+  const teamName = $('#team-name').value.trim();
+  const leader = $('#team-leader').value;
+  
+  const players = [
+    {uid: $('#p1-uid').value.trim(), pass: $('#p1-pass').value.trim()},
+    {uid: $('#p2-uid').value.trim(), pass: $('#p2-pass').value.trim()},
+    {uid: $('#p3-uid').value.trim(), pass: $('#p3-pass').value.trim()},
+    {uid: $('#p4-uid').value.trim(), pass: $('#p4-pass').value.trim()}
+  ].filter(p => p.uid && p.pass);
+
+  if(players.length === 0){
+    toast('At least 1 player required!', 'err');
+    return;
+  }
+
+  const payload = {
+    team_name: teamName,
+    leader_index: leader,
+    players: players
+  };
+
+  try {
+    const res = await fetch('/api/create_bot_team', {
+      method:'POST', 
+      headers:{'Content-Type':'application/json'}, 
+      body:JSON.stringify(payload)
+    });
+    const data = await res.json().catch(()=>({}));
+    closeTeamBuilderModal();
+    toast(`Team "${teamName}" created successfully!`);
+    fetchStats(true);
+  } catch(err){
+    toast('Failed to create team', 'err');
+  }
+}
+
+// Submit New Clan and Assign Team
+async function submitNewClan(e){
+  e.preventDefault();
+  const clanUid = $('#clan-uid').value.trim();
+  const selectedTeam = $('#clan-team-select').value;
+
+  if(!clanUid){
+    toast('Clan UID is required!', 'err');
+    return;
+  }
+
+  const payload = {
+    clan_uid: clanUid,
+    team_target: selectedTeam
+  };
+
+  try {
+    const res = await fetch('/api/add_clan', {
+      method:'POST', 
+      headers:{'Content-Type':'application/json'}, 
+      body:JSON.stringify(payload)
+    });
+    const data = await res.json().catch(()=>({}));
+    closeClanModal();
+    toast(`Clan ${clanUid} started successfully!`);
+    fetchStats(true);
+  } catch(err){
+    toast('Failed to start clan task', 'err');
+  }
 }
 
 async function deleteAccount(uid){
