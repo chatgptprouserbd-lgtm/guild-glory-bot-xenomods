@@ -3,80 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEXGOJO — Command Center & Team Builder</title>
+<title>DARK MASTER — Ultimate FreeFire Squad & Guild Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
 :root{
-  --void:#03040a;--bg:#06080f;--panel:rgba(12,18,32,0.85);--panel-2:#0d1524;--panel-3:#131c31;
-  --border:rgba(255,255,255,0.06);--border-hi:rgba(0,240,255,0.3);
-  --txt:#f1ecff;--txt-2:#b3a6d6;--txt-3:#6b7c99;
-  --a:rgb(0,240,255);--b:rgb(168,85,247);--ok:rgb(124,255,74);--warn:rgb(255,184,77);--bad:rgb(255,45,85);
-  --r:16px;--r-sm:10px;
-  --display:'Orbitron',sans-serif;--ui:'Rajdhani',sans-serif;--mono:'JetBrains Mono',monospace;
+  --bg:#030509;--panel:rgba(10,15,28,0.85);--panel-sub:#0e1628;
+  --border:rgba(0,240,255,0.15);--border-hi:rgba(0,240,255,0.5);
+  --txt:#f0f4fc;--txt-muted:#60708f;
+  --neon-cyan:#00f0ff;--neon-purple:#9d4edd;--neon-green:#00ff87;
+  --neon-warn:#ffb703;--neon-red:#ff0055;
+  --font-title:'Orbitron',sans-serif;--font-ui:'Rajdhani',sans-serif;--font-mono:'JetBrains Mono',monospace;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--ui);background:var(--void);color:var(--txt);padding:20px;min-height:100vh;}
-.container{max-width:1440px;margin:0 auto;}
-button{font-family:inherit;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--txt);font-family:var(--font-ui);padding:20px;min-height:100vh;}
+.container{max-width:1600px;margin:0 auto;}
 
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;margin-bottom:20px;background:var(--panel);border:1px solid var(--border-hi);border-radius:var(--r);}
+/* TOP NAVIGATION HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;background:var(--panel);border:1px solid var(--border-hi);border-radius:14px;box-shadow:0 0 25px rgba(0,240,255,0.1);margin-bottom:20px;}
 .brand{display:flex;align-items:center;gap:16px;}
-.logo{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:20px;background:linear-gradient(135deg,var(--a),var(--b));color:#000;}
-.glitch{font-family:var(--display);font-weight:900;font-size:22px;color:var(--txt);}
-.tagline{font-size:12px;color:var(--txt-3);display:flex;align-items:center;gap:10px;margin-top:2px;}
-.pill{padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;border:1px solid var(--border-hi);}
-.pill.live{color:var(--ok);border-color:rgba(124,255,74,.4);background:rgba(124,255,74,.08);}
+.logo{width:50px;height:50px;background:linear-gradient(135deg,var(--neon-cyan),var(--neon-purple));border-radius:12px;display:grid;place-items:center;font-family:var(--font-title);font-size:24px;font-weight:900;color:#000;}
+.title{font-family:var(--font-title);font-size:22px;font-weight:900;letter-spacing:1px;color:var(--txt);}
+.subtitle{font-size:12px;color:var(--neon-cyan);display:flex;align-items:center;gap:8px;margin-top:2px;}
+.dot{width:8px;height:8px;background:var(--neon-green);border-radius:50%;box-shadow:0 0 10px var(--neon-green);}
 
-.actions{display:flex;gap:10px;}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:var(--r-sm);font-size:13px;font-weight:700;cursor:pointer;border:1px solid var(--border);color:var(--txt);background:rgba(255,255,255,.03);transition:.2s;}
-.btn:hover{background:var(--panel-3);border-color:var(--a);}
-.btn-primary{background:linear-gradient(135deg,var(--a),var(--b));color:#000;border:0;}
-.btn-success{background:linear-gradient(135deg,var(--ok),#3fd130);color:#000;border:0;}
-.btn-warning{background:linear-gradient(135deg,var(--warn),#ff9800);color:#000;border:0;}
+.actions{display:flex;gap:12px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-family:var(--font-ui);font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);color:var(--txt);background:rgba(255,255,255,0.03);transition:0.2s;}
+.btn:hover{border-color:var(--neon-cyan);background:rgba(0,240,255,0.1);transform:translateY(-2px);}
+.btn-primary{background:linear-gradient(135deg,var(--neon-cyan),#0077ff);color:#000;border:0;}
+.btn-warn{background:linear-gradient(135deg,var(--neon-warn),#ff5500);color:#000;border:0;}
+.btn-green{background:linear-gradient(135deg,var(--neon-green),#00aa55);color:#000;border:0;}
 
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px;}
-.stat{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:16px;}
-.stat-label{font-size:11px;font-weight:700;color:var(--txt-3);text-transform:uppercase;}
-.stat-value{font-family:var(--display);font-size:22px;font-weight:700;margin-top:4px;}
+/* METRICS STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:20px;}
+.stat-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.stat-lbl{font-size:12px;font-weight:700;color:var(--txt-muted);text-transform:uppercase;}
+.stat-val{font-family:var(--font-title);font-size:24px;font-weight:700;margin-top:6px;color:var(--neon-cyan);}
 
-.layout{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
-.panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
-.panel-title{font-family:var(--display);font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px;}
+/* MAIN CONTENT LAYOUT */
+.main-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--panel-sub);border-bottom:1px solid var(--border);}
+.panel-title{font-family:var(--font-title);font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px;color:var(--neon-cyan);}
 
-.toolbar{display:flex;gap:10px;padding:14px;border-bottom:1px solid var(--border);}
-.input{width:100%;background:var(--void);border:1px solid var(--border-hi);border-radius:var(--r-sm);padding:8px 12px;color:var(--txt);outline:none;}
+/* CARDS LIST */
+.card-grid{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.squad-card{background:var(--panel-sub);border:1px solid var(--border);border-radius:10px;padding:14px;}
+.squad-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.squad-name{font-weight:700;font-size:15px;}
+.badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(0,255,135,0.1);color:var(--neon-green);border:1px solid var(--neon-green);}
 
-.accounts{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
-.account{padding:16px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--panel-2);}
-.acc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.acc-name{font-weight:700;}
-.acc-uid{font-size:11px;color:var(--txt-3);font-family:var(--mono);}
-.status{padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;background:rgba(124,255,74,.1);color:var(--ok);}
+.logs-box{height:500px;overflow-y:auto;padding:14px;font-family:var(--font-mono);font-size:12px;background:#010205;line-height:1.7;}
+.log-line{display:flex;gap:10px;}
+.log-time{color:var(--txt-muted);}
+.log-msg.success{color:var(--neon-green);}
+.log-msg.error{color:var(--neon-red);}
+.log-msg.warning{color:var(--neon-warn);}
 
-.logs-stream{height:480px;overflow-y:auto;padding:14px;font-family:var(--mono);font-size:11.5px;background:var(--void);line-height:1.6;}
-.log-line{display:flex;gap:8px;}
-.log-ts{color:var(--txt-3);}
-.log-msg.success{color:var(--ok);}
-.log-msg.error{color:var(--bad);}
-
-/* MODAL */
-.overlay{position:fixed;inset:0;z-index:999;background:rgba(3,4,10,.85);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px;}
+/* MODAL OVERLAY */
+.overlay{position:fixed;inset:0;z-index:999;background:rgba(1,3,8,0.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;}
 .overlay.active{display:flex !important;}
-.modal{width:100%;max-width:520px;background:var(--panel);border:1px solid var(--border-hi);border-radius:var(--r);overflow:hidden;}
-.modal-head{display:flex;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
-.modal-body{padding:20px;}
-.field{margin-bottom:12px;}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--txt-2);}
-.modal-foot{display:flex;justify-content:flex-end;gap:10px;padding-top:10px;}
-.player-box{background:var(--void);border:1px solid var(--border);border-radius:8px;padding:8px;margin-bottom:8px;}
+.modal{width:100%;max-width:560px;background:var(--panel);border:1px solid var(--border-hi);border-radius:14px;overflow:hidden;}
+.modal-head{display:flex;justify-content:space-between;padding:16px 20px;background:var(--panel-sub);border-bottom:1px solid var(--border);}
+.modal-body{padding:20px;max-height:80vh;overflow-y:auto;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--neon-cyan);}
+.input{width:100%;background:#020408;border:1px solid var(--border-hi);border-radius:8px;padding:10px 14px;color:var(--txt);outline:none;font-family:var(--font-mono);}
+
+.squad-box{background:#040812;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;}
+.player-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
 
 .toasts{position:fixed;right:20px;top:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;}
-.toast{min-width:220px;padding:10px 14px;border-radius:8px;background:var(--panel-2);border-left:3px solid var(--a);font-size:13px;}
+.toast{min-width:240px;padding:12px 18px;border-radius:8px;background:var(--panel-sub);border-left:4px solid var(--neon-cyan);font-size:13px;box-shadow:0 0 20px rgba(0,0,0,0.5);}
 </style>
 </head>
 <body>
@@ -84,90 +85,96 @@ button{font-family:inherit;}
 <div class="toasts" id="toasts"></div>
 
 <div class="container">
-  <div class="topbar">
+  <!-- TOP BAR -->
+  <div class="header">
     <div class="brand">
-      <div class="logo">C</div>
+      <div class="logo">DM</div>
       <div>
-        <div class="glitch">COMMAND CENTER</div>
-        <div class="tagline"><span>Level Up Engine</span><span class="pill live" id="conn-pill">LIVE</span></div>
+        <div class="title">DARK MASTER ENGINE</div>
+        <div class="subtitle"><div class="dot"></div> AUTOMATED SQUAD & GUILD CONTROLLER</div>
       </div>
     </div>
     <div class="actions">
-      <button class="btn" onclick="fetchStats()"><i class="fa-solid fa-rotate"></i> Refresh</button>
-      <button class="btn btn-warning" onclick="openTeamBuilderModal()"><i class="fa-solid fa-users"></i> Add Bot Team</button>
-      <button class="btn btn-success" onclick="openClanModal()"><i class="fa-solid fa-shield-halved"></i> Add New Clan</button>
-      <button class="btn btn-primary" onclick="openAddModal()"><i class="fa-solid fa-plus"></i> Add Account</button>
+      <button class="btn" onclick="fetchStats()"><i class="fa-solid fa-rotate"></i> Sync Data</button>
+      <button class="btn btn-warn" onclick="openBulkModal()"><i class="fa-solid fa-users"></i> Add Bulk Teams</button>
+      <button class="btn btn-green" onclick="openClanModal()"><i class="fa-solid fa-shield-halved"></i> Set Guild / Clan ID</button>
     </div>
   </div>
 
-  <div class="stats">
-    <div class="stat"><div class="stat-label">Active Accounts</div><div class="stat-value" id="stat-total-accounts">0</div></div>
-    <div class="stat"><div class="stat-label">Total EXP Gained</div><div class="stat-value" id="stat-total-exp">0</div></div>
-    <div class="stat"><div class="stat-label">Matches Done</div><div class="stat-value" id="stat-total-matches">0</div></div>
-    <div class="stat"><div class="stat-label">Uptime</div><div class="stat-value" id="stat-uptime">00:00:00</div></div>
-    <div class="stat"><div class="stat-label">Status</div><div class="stat-value" style="color:var(--ok);">RUNNING</div></div>
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-lbl">Active Accounts</div><div class="stat-val" id="stat-accs">0</div></div>
+    <div class="stat-card"><div class="stat-lbl">Total Squads</div><div class="stat-val" id="stat-teams" style="color:var(--neon-warn);">0</div></div>
+    <div class="stat-card"><div class="stat-lbl">Total EXP Gained</div><div class="stat-val" id="stat-exp" style="color:var(--neon-green);">+0</div></div>
+    <div class="stat-card"><div class="stat-lbl">Matches Finished</div><div class="stat-val" id="stat-matches">0</div></div>
+    <div class="stat-card"><div class="stat-lbl">Engine Uptime</div><div class="stat-val" id="stat-uptime">0s</div></div>
   </div>
 
-  <div class="layout">
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout">
+    <!-- LEFT: SQUAD LIST -->
     <div class="panel">
-      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-list-ul"></i> MONITORED ACCOUNTS</div></div>
-      <div class="accounts" id="accounts-container"><div style="padding:20px;text-align:center;">Loading accounts...</div></div>
+      <div class="panel-head">
+        <div class="panel-title"><i class="fa-solid fa-layer-group"></i> ACTIVE SQUADS & TEAMS</div>
+      </div>
+      <div class="card-grid" id="teams-container">
+        <div style="padding:20px;text-align:center;">Loading Squad Data...</div>
+      </div>
     </div>
+
+    <!-- RIGHT: LOGS STREAM -->
     <div class="panel">
-      <div class="panel-head"><div class="panel-title"><i class="fa-solid fa-terminal"></i> ACTIVITY LOG</div></div>
-      <div class="logs-stream" id="log-stream"></div>
+      <div class="panel-head">
+        <div class="panel-title"><i class="fa-solid fa-terminal"></i> LIVE ENGINE LOGS</div>
+        <button class="btn" onclick="clearLogs()" style="padding:4px 10px;font-size:11px;">Clear</button>
+      </div>
+      <div class="logs-box" id="logs-box"></div>
     </div>
   </div>
 </div>
 
-<!-- MODAL ADD ACCOUNT -->
-<div class="overlay" id="add-modal">
+<!-- MODAL: BULK TEAMS -->
+<div class="overlay" id="bulk-modal">
   <div class="modal">
-    <div class="modal-head"><h3>ADD ACCOUNT</h3><button class="btn" onclick="closeAddModal()">X</button></div>
+    <div class="modal-head">
+      <h3>CREATE BULK BOT SQUADS</h3>
+      <button class="btn" onclick="closeBulkModal()">X</button>
+    </div>
     <div class="modal-body">
-      <form onsubmit="submitAddAccount(event)">
-        <div class="field"><label>Guest UID</label><input type="text" class="input" id="acc-uid" required></div>
-        <div class="field"><label>Password</label><input type="password" class="input" id="acc-password" required></div>
-        <div class="modal-foot">
-          <button type="button" class="btn" onclick="closeAddModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save & Start</button>
+      <form onsubmit="submitBulkTeams(event)">
+        <div class="squad-box">
+          <div class="field"><label>Squad 1 Name</label><input type="text" class="input" id="t1-name" value="Team_Alpha" required></div>
+          <div class="player-row"><input type="text" class="input" id="t1p1-uid" placeholder="P1 UID"><input type="text" class="input" id="t1p1-pass" placeholder="P1 Password"></div>
+          <div class="player-row"><input type="text" class="input" id="t1p2-uid" placeholder="P2 UID"><input type="text" class="input" id="t1p2-pass" placeholder="P2 Password"></div>
+          <div class="player-row"><input type="text" class="input" id="t1p3-uid" placeholder="P3 UID"><input type="text" class="input" id="t1p3-pass" placeholder="P3 Password"></div>
+          <div class="player-row"><input type="text" class="input" id="t1p4-uid" placeholder="P4 UID"><input type="text" class="input" id="t1p4-pass" placeholder="P4 Password"></div>
         </div>
+        <button type="submit" class="btn btn-warn" style="width:100%;margin-top:10px;">Launch Bulk Squads</button>
       </form>
     </div>
   </div>
 </div>
 
-<!-- MODAL ADD BOT TEAM -->
-<div class="overlay" id="team-builder-modal">
-  <div class="modal">
-    <div class="modal-head"><h3>ADD BOT TEAM (4 PLAYERS)</h3><button class="btn" onclick="closeTeamBuilderModal()">X</button></div>
-    <div class="modal-body">
-      <form onsubmit="submitBotTeam(event)">
-        <div class="field"><label>Team Name</label><input type="text" class="input" id="team-name" value="Team_RBC_1" required></div>
-        <div class="player-box"><label>Player 1 (UID / Pass)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><input type="text" class="input" id="p1-uid" placeholder="UID"><input type="text" class="input" id="p1-pass" placeholder="Password"></div></div>
-        <div class="player-box"><label>Player 2 (UID / Pass)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><input type="text" class="input" id="p2-uid" placeholder="UID"><input type="text" class="input" id="p2-pass" placeholder="Password"></div></div>
-        <div class="player-box"><label>Player 3 (UID / Pass)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><input type="text" class="input" id="p3-uid" placeholder="UID"><input type="text" class="input" id="p3-pass" placeholder="Password"></div></div>
-        <div class="player-box"><label>Player 4 (UID / Pass)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;"><input type="text" class="input" id="p4-uid" placeholder="UID"><input type="text" class="input" id="p4-pass" placeholder="Password"></div></div>
-        <div class="modal-foot">
-          <button type="button" class="btn" onclick="closeTeamBuilderModal()">Cancel</button>
-          <button type="submit" class="btn btn-warning">Create Team</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL ADD CLAN -->
+<!-- MODAL: GUILD / CLAN -->
 <div class="overlay" id="clan-modal">
   <div class="modal">
-    <div class="modal-head"><h3>ADD NEW CLAN</h3><button class="btn" onclick="closeClanModal()">X</button></div>
+    <div class="modal-head">
+      <h3>ASSIGN SQUAD TO CLAN</h3>
+      <button class="btn" onclick="closeClanModal()">X</button>
+    </div>
     <div class="modal-body">
-      <form onsubmit="submitNewClan(event)">
-        <div class="field"><label>Clan ID / UID</label><input type="text" class="input" id="clan-uid" required></div>
-        <div class="modal-foot">
-          <button type="button" class="btn" onclick="closeClanModal()">Cancel</button>
-          <button type="submit" class="btn btn-success">Start Clan Request</button>
+      <form onsubmit="submitClan(event)">
+        <div class="field">
+          <label>Target Clan / Guild ID</label>
+          <input type="text" class="input" id="clan-id" placeholder="e.g. 3105331459" required>
         </div>
+        <div class="field">
+          <label>Select Team / Squad</label>
+          <select class="input" id="clan-team-select">
+            <option value="">-- All Active Squads --</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;margin-top:10px;">Validate & Join Clan</button>
       </form>
     </div>
   </div>
@@ -175,62 +182,94 @@ button{font-family:inherit;}
 
 <script>
 const $ = s => document.querySelector(s);
-function toast(msg){ const el = document.createElement('div'); el.className='toast'; el.textContent=msg; $('#toasts').appendChild(el); setTimeout(()=>el.remove(), 3000); }
+function toast(msg){
+  const el = document.createElement('div'); el.className = 'toast'; el.textContent = msg;
+  $('#toasts').appendChild(el); setTimeout(() => el.remove(), 3500);
+}
 
-function openAddModal(){ $('#add-modal').classList.add('active'); }
-function closeAddModal(){ $('#add-modal').classList.remove('active'); }
-function openTeamBuilderModal(){ $('#team-builder-modal').classList.add('active'); }
-function closeTeamBuilderModal(){ $('#team-builder-modal').classList.remove('active'); }
+function openBulkModal(){ $('#bulk-modal').classList.add('active'); }
+function closeBulkModal(){ $('#bulk-modal').classList.remove('active'); }
 function openClanModal(){ $('#clan-modal').classList.add('active'); }
 function closeClanModal(){ $('#clan-modal').classList.remove('active'); }
-
-async function submitAddAccount(e){
-  e.preventDefault();
-  const res = await fetch('/api/account/add', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({uid:$('#acc-uid').value, password:$('#acc-password').value})});
-  closeAddModal(); toast('Account Added!'); fetchStats();
-}
-
-async function submitBotTeam(e){
-  e.preventDefault();
-  const players = [
-    {uid:$('#p1-uid').value, pass:$('#p1-pass').value},
-    {uid:$('#p2-uid').value, pass:$('#p2-pass').value},
-    {uid:$('#p3-uid').value, pass:$('#p3-pass').value},
-    {uid:$('#p4-uid').value, pass:$('#p4-pass').value}
-  ].filter(p=>p.uid && p.pass);
-  
-  await fetch('/api/create_bot_team', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({team_name:$('#team-name').value, players})});
-  closeTeamBuilderModal(); toast('Bot Team Created!'); fetchStats();
-}
-
-async function submitNewClan(e){
-  e.preventDefault();
-  await fetch('/api/add_clan', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({clan_uid:$('#clan-uid').value})});
-  closeClanModal(); toast('Clan Join Initiated!'); fetchStats();
-}
 
 async function fetchStats(){
   try{
     const res = await fetch('/api/stats');
     const data = await res.json();
-    $('#stat-total-accounts').textContent = data.total_accounts;
-    $('#stat-total-exp').textContent = '+' + data.total_gained_exp;
-    $('#stat-total-matches').textContent = data.total_matches;
-    
-    const box = $('#accounts-container');
-    if(!data.accounts.length) box.innerHTML = '<div style="padding:20px;">No active accounts.</div>';
-    else {
-      box.innerHTML = data.accounts.map(a => `<div class="account">
-        <div class="acc-row"><div class="acc-name">${a.nickname||'Player'}</div><span class="status">${a.status||'ONLINE'}</span></div>
-        <div class="acc-uid">UID: ${a.uid}</div>
-        <div style="font-size:12px;margin-top:6px;">Level: ${a.level||1} | EXP: ${a.current_exp||0}</div>
-      </div>`).join('');
+
+    $('#stat-accs').textContent = data.total_accounts;
+    $('#stat-teams').textContent = data.total_teams;
+    $('#stat-exp').textContent = '+' + data.total_gained_exp;
+    $('#stat-matches').textContent = data.total_matches;
+    $('#stat-uptime').textContent = data.uptime + 's';
+
+    // Populate Squad List
+    const box = $('#teams-container');
+    const sel = $('#clan-team-select');
+    sel.innerHTML = '<option value="">-- All Active Squads --</option>';
+
+    if(!data.teams || !data.teams.length){
+      box.innerHTML = '<div style="padding:20px;grid-column:1/-1;text-align:center;">No Bulk Squads Created Yet.</div>';
+    }else{
+      box.innerHTML = data.teams.map(t => {
+        sel.innerHTML += `<option value="${t.id}">${t.name} (${t.player_count} Players)</option>`;
+        return `<div class="squad-card">
+          <div class="squad-head">
+            <div class="squad-name">${t.name}</div>
+            <span class="badge">${t.in_guild ? 'GUILD ACTIVE' : 'NO GUILD'}</span>
+          </div>
+          <div style="font-size:12px;color:var(--txt-muted);">Players: ${t.player_count} | Created: ${t.created_at}</div>
+        </div>`;
+      }).join('');
     }
-    
-    const logBox = $('#log-stream');
-    logBox.innerHTML = data.logs.map(l => `<div class="log-line"><span class="log-ts">[${l.time}]</span><span class="log-msg ${l.level}">${l.message}</span></div>`).join('');
+
+    // Logs
+    const logBox = $('#logs-box');
+    logBox.innerHTML = data.logs.map(l => `<div class="log-line">
+      <span class="log-time">[${l.time}]</span>
+      <span class="log-msg ${l.level}">${l.message}</span>
+    </div>`).join('');
     logBox.scrollTop = logBox.scrollHeight;
   }catch(e){}
+}
+
+async function submitBulkTeams(e){
+  e.preventDefault();
+  const payload = {
+    teams: [{
+      team_name: $('#t1-name').value,
+      players: [
+        {uid: $('#t1p1-uid').value, password: $('#t1p1-pass').value},
+        {uid: $('#t1p2-uid').value, password: $('#t1p2-pass').value},
+        {uid: $('#t1p3-uid').value, password: $('#t1p3-pass').value},
+        {uid: $('#t1p4-uid').value, password: $('#t1p4-pass').value}
+      ]
+    }]
+  };
+  const res = await fetch('/api/teams/bulk_create', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+  closeBulkModal(); toast('Bulk Squad Created Successfully!'); fetchStats();
+}
+
+async function submitClan(e){
+  e.preventDefault();
+  const res = await fetch('/api/clan/assign', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({clan_id: $('#clan-id').value, team_id: $('#clan-team-select').value})
+  });
+  const data = await res.json();
+  closeClanModal();
+  if(data.status === 'warning'){
+    toast('⚠️ ' + data.message);
+  }else{
+    toast('✅ Clan Joined & Verified!');
+  }
+  fetchStats();
+}
+
+async function clearLogs(){
+  await fetch('/api/logs/clear', {method:'POST'});
+  fetchStats();
 }
 
 setInterval(fetchStats, 3000);
