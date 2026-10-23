@@ -1,279 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DARK MASTER — Ultimate FreeFire Squad & Guild Engine</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<style>
-:root{
-  --bg:#030509;--panel:rgba(10,15,28,0.85);--panel-sub:#0e1628;
-  --border:rgba(0,240,255,0.15);--border-hi:rgba(0,240,255,0.5);
-  --txt:#f0f4fc;--txt-muted:#60708f;
-  --neon-cyan:#00f0ff;--neon-purple:#9d4edd;--neon-green:#00ff87;
-  --neon-warn:#ffb703;--neon-red:#ff0055;
-  --font-title:'Orbitron',sans-serif;--font-ui:'Rajdhani',sans-serif;--font-mono:'JetBrains Mono',monospace;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--txt);font-family:var(--font-ui);padding:20px;min-height:100vh;}
-.container{max-width:1600px;margin:0 auto;}
-
-/* TOP NAVIGATION HEADER */
-.header{display:flex;align-items:center;justify-content:space-between;padding:18px 26px;background:var(--panel);border:1px solid var(--border-hi);border-radius:14px;box-shadow:0 0 25px rgba(0,240,255,0.1);margin-bottom:20px;}
-.brand{display:flex;align-items:center;gap:16px;}
-.logo{width:50px;height:50px;background:linear-gradient(135deg,var(--neon-cyan),var(--neon-purple));border-radius:12px;display:grid;place-items:center;font-family:var(--font-title);font-size:24px;font-weight:900;color:#000;}
-.title{font-family:var(--font-title);font-size:22px;font-weight:900;letter-spacing:1px;color:var(--txt);}
-.subtitle{font-size:12px;color:var(--neon-cyan);display:flex;align-items:center;gap:8px;margin-top:2px;}
-.dot{width:8px;height:8px;background:var(--neon-green);border-radius:50%;box-shadow:0 0 10px var(--neon-green);}
-
-.actions{display:flex;gap:12px;}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-family:var(--font-ui);font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--border);color:var(--txt);background:rgba(255,255,255,0.03);transition:0.2s;}
-.btn:hover{border-color:var(--neon-cyan);background:rgba(0,240,255,0.1);transform:translateY(-2px);}
-.btn-primary{background:linear-gradient(135deg,var(--neon-cyan),#0077ff);color:#000;border:0;}
-.btn-warn{background:linear-gradient(135deg,var(--neon-warn),#ff5500);color:#000;border:0;}
-.btn-green{background:linear-gradient(135deg,var(--neon-green),#00aa55);color:#000;border:0;}
-
-/* METRICS STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:20px;}
-.stat-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;}
-.stat-lbl{font-size:12px;font-weight:700;color:var(--txt-muted);text-transform:uppercase;}
-.stat-val{font-family:var(--font-title);font-size:24px;font-weight:700;margin-top:6px;color:var(--neon-cyan);}
-
-/* MAIN CONTENT LAYOUT */
-.main-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-.panel-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--panel-sub);border-bottom:1px solid var(--border);}
-.panel-title{font-family:var(--font-title);font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px;color:var(--neon-cyan);}
-
-/* CARDS LIST */
-.card-grid{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
-.squad-card{background:var(--panel-sub);border:1px solid var(--border);border-radius:10px;padding:14px;}
-.squad-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.squad-name{font-weight:700;font-size:15px;}
-.badge{padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(0,255,135,0.1);color:var(--neon-green);border:1px solid var(--neon-green);}
-
-.logs-box{height:500px;overflow-y:auto;padding:14px;font-family:var(--font-mono);font-size:12px;background:#010205;line-height:1.7;}
-.log-line{display:flex;gap:10px;}
-.log-time{color:var(--txt-muted);}
-.log-msg.success{color:var(--neon-green);}
-.log-msg.error{color:var(--neon-red);}
-.log-msg.warning{color:var(--neon-warn);}
-
-/* MODAL OVERLAY */
-.overlay{position:fixed;inset:0;z-index:999;background:rgba(1,3,8,0.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;}
-.overlay.active{display:flex !important;}
-.modal{width:100%;max-width:560px;background:var(--panel);border:1px solid var(--border-hi);border-radius:14px;overflow:hidden;}
-.modal-head{display:flex;justify-content:space-between;padding:16px 20px;background:var(--panel-sub);border-bottom:1px solid var(--border);}
-.modal-body{padding:20px;max-height:80vh;overflow-y:auto;}
-.field{margin-bottom:14px;}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--neon-cyan);}
-.input{width:100%;background:#020408;border:1px solid var(--border-hi);border-radius:8px;padding:10px 14px;color:var(--txt);outline:none;font-family:var(--font-mono);}
-
-.squad-box{background:#040812;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px;}
-.player-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
-
-.toasts{position:fixed;right:20px;top:20px;z-index:9999;display:flex;flex-direction:column;gap:10px;}
-.toast{min-width:240px;padding:12px 18px;border-radius:8px;background:var(--panel-sub);border-left:4px solid var(--neon-cyan);font-size:13px;box-shadow:0 0 20px rgba(0,0,0,0.5);}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Master Engine - BD Server</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8 bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-lg">
+            <div>
+                <h1 class="text-2xl font-black tracking-wider text-cyan-400">DARK MASTER ENGINE</h1>
+                <p class="text-xs text-slate-400 mt-1">AUTOMATED SQUAD & GUILD CONTROLLER (BD SERVER)</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="openModal()" class="bg-cyan-600 hover:bg-cyan-500 px-4 py-2 rounded-lg font-semibold text-sm transition">Add Account</button>
+            </div>
+        </header>
 
-<div class="toasts" id="toasts"></div>
-
-<div class="container">
-  <!-- TOP BAR -->
-  <div class="header">
-    <div class="brand">
-      <div class="logo">DM</div>
-      <div>
-        <div class="title">DARK MASTER ENGINE</div>
-        <div class="subtitle"><div class="dot"></div> AUTOMATED SQUAD & GUILD CONTROLLER</div>
-      </div>
-    </div>
-    <div class="actions">
-      <button class="btn" onclick="fetchStats()"><i class="fa-solid fa-rotate"></i> Sync Data</button>
-      <button class="btn btn-warn" onclick="openBulkModal()"><i class="fa-solid fa-users"></i> Add Bulk Teams</button>
-      <button class="btn btn-green" onclick="openClanModal()"><i class="fa-solid fa-shield-halved"></i> Set Guild / Clan ID</button>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-lbl">Active Accounts</div><div class="stat-val" id="stat-accs">0</div></div>
-    <div class="stat-card"><div class="stat-lbl">Total Squads</div><div class="stat-val" id="stat-teams" style="color:var(--neon-warn);">0</div></div>
-    <div class="stat-card"><div class="stat-lbl">Total EXP Gained</div><div class="stat-val" id="stat-exp" style="color:var(--neon-green);">+0</div></div>
-    <div class="stat-card"><div class="stat-lbl">Matches Finished</div><div class="stat-val" id="stat-matches">0</div></div>
-    <div class="stat-card"><div class="stat-lbl">Engine Uptime</div><div class="stat-val" id="stat-uptime">0s</div></div>
-  </div>
-
-  <!-- MAIN LAYOUT -->
-  <div class="main-layout">
-    <!-- LEFT: SQUAD LIST -->
-    <div class="panel">
-      <div class="panel-head">
-        <div class="panel-title"><i class="fa-solid fa-layer-group"></i> ACTIVE SQUADS & TEAMS</div>
-      </div>
-      <div class="card-grid" id="teams-container">
-        <div style="padding:20px;text-align:center;">Loading Squad Data...</div>
-      </div>
-    </div>
-
-    <!-- RIGHT: LOGS STREAM -->
-    <div class="panel">
-      <div class="panel-head">
-        <div class="panel-title"><i class="fa-solid fa-terminal"></i> LIVE ENGINE LOGS</div>
-        <button class="btn" onclick="clearLogs()" style="padding:4px 10px;font-size:11px;">Clear</button>
-      </div>
-      <div class="logs-box" id="logs-box"></div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: BULK TEAMS -->
-<div class="overlay" id="bulk-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <h3>CREATE BULK BOT SQUADS</h3>
-      <button class="btn" onclick="closeBulkModal()">X</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="submitBulkTeams(event)">
-        <div class="squad-box">
-          <div class="field"><label>Squad 1 Name</label><input type="text" class="input" id="t1-name" value="Team_Alpha" required></div>
-          <div class="player-row"><input type="text" class="input" id="t1p1-uid" placeholder="P1 UID"><input type="text" class="input" id="t1p1-pass" placeholder="P1 Password"></div>
-          <div class="player-row"><input type="text" class="input" id="t1p2-uid" placeholder="P2 UID"><input type="text" class="input" id="t1p2-pass" placeholder="P2 Password"></div>
-          <div class="player-row"><input type="text" class="input" id="t1p3-uid" placeholder="P3 UID"><input type="text" class="input" id="t1p3-pass" placeholder="P3 Password"></div>
-          <div class="player-row"><input type="text" class="input" id="t1p4-uid" placeholder="P4 UID"><input type="text" class="input" id="t1p4-pass" placeholder="P4 Password"></div>
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <p class="text-slate-400 text-sm">Active Accounts</p>
+                <h3 id="active-count" class="text-3xl font-bold text-cyan-400 mt-2">0</h3>
+            </div>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <p class="text-slate-400 text-sm">Server Status</p>
+                <h3 class="text-3xl font-bold text-emerald-400 mt-2">Online</h3>
+            </div>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <p class="text-slate-400 text-sm">Target Region</p>
+                <h3 class="text-3xl font-bold text-amber-400 mt-2">BD</h3>
+            </div>
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                <p class="text-slate-400 text-sm">Engine Uptime</p>
+                <h3 id="uptime" class="text-3xl font-bold text-purple-400 mt-2">0s</h3>
+            </div>
         </div>
-        <button type="submit" class="btn btn-warn" style="width:100%;margin-top:10px;">Launch Bulk Squads</button>
-      </form>
-    </div>
-  </div>
-</div>
 
-<!-- MODAL: GUILD / CLAN -->
-<div class="overlay" id="clan-modal">
-  <div class="modal">
-    <div class="modal-head">
-      <h3>ASSIGN SQUAD TO CLAN</h3>
-      <button class="btn" onclick="closeClanModal()">X</button>
-    </div>
-    <div class="modal-body">
-      <form onsubmit="submitClan(event)">
-        <div class="field">
-          <label>Target Clan / Guild ID</label>
-          <input type="text" class="input" id="clan-id" placeholder="e.g. 3105331459" required>
+        <!-- Guild Join Panel -->
+        <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 mb-8">
+            <h2 class="text-lg font-semibold mb-4 text-slate-200">Guild Assignment</h2>
+            <div class="flex gap-4">
+                <input type="text" id="guild-id" placeholder="Enter Target Guild ID" class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500">
+                <button onclick="joinGuild()" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-lg font-semibold transition">Validate & Join Guild</button>
+            </div>
+            <p id="guild-status" class="text-sm mt-3 text-slate-400"></p>
         </div>
-        <div class="field">
-          <label>Select Team / Squad</label>
-          <select class="input" id="clan-team-select">
-            <option value="">-- All Active Squads --</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-green" style="width:100%;margin-top:10px;">Validate & Join Clan</button>
-      </form>
     </div>
-  </div>
-</div>
 
-<script>
-const $ = s => document.querySelector(s);
-function toast(msg){
-  const el = document.createElement('div'); el.className = 'toast'; el.textContent = msg;
-  $('#toasts').appendChild(el); setTimeout(() => el.remove(), 3500);
-}
+    <!-- Modal for Adding Account -->
+    <div id="accountModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-md">
+            <h2 class="text-xl font-bold mb-4 text-cyan-400">Add BD Account</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Account UID</label>
+                    <input type="text" id="uid" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500" placeholder="e.g. 8330341878">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Access Token</label>
+                    <textarea id="access_token" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-500" placeholder="Paste access token here"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 mt-6">
+                    <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm">Cancel</button>
+                    <button onclick="addAccount()" class="bg-cyan-600 hover:bg-cyan-500 px-4 py-2 rounded-lg text-sm font-semibold">Save Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-function openBulkModal(){ $('#bulk-modal').classList.add('active'); }
-function closeBulkModal(){ $('#bulk-modal').classList.remove('active'); }
-function openClanModal(){ $('#clan-modal').classList.add('active'); }
-function closeClanModal(){ $('#clan-modal').classList.remove('active'); }
+    <script>
+        function openModal() { document.getElementById('accountModal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('accountModal').classList.add('hidden'); }
 
-async function fetchStats(){
-  try{
-    const res = await fetch('/api/stats');
-    const data = await res.json();
+        async function addAccount() {
+            const uid = document.getElementById('uid').value;
+            const access_token = document.getElementById('access_token').value;
+            
+            const formData = new URLSearchParams();
+            formData.append('uid', uid);
+            formData.append('access_token', access_token);
+            formData.append('region', 'BD');
 
-    $('#stat-accs').textContent = data.total_accounts;
-    $('#stat-teams').textContent = data.total_teams;
-    $('#stat-exp').textContent = '+' + data.total_gained_exp;
-    $('#stat-matches').textContent = data.total_matches;
-    $('#stat-uptime').textContent = data.uptime + 's';
+            const res = await fetch('/api/add_account', { method: 'POST', body: formData });
+            const data = await res.json();
+            alert(data.message);
+            if(data.status === 'success') { closeModal(); location.reload(); }
+        }
 
-    // Populate Squad List
-    const box = $('#teams-container');
-    const sel = $('#clan-team-select');
-    sel.innerHTML = '<option value="">-- All Active Squads --</option>';
+        async function joinGuild() {
+            const guild_id = document.getElementById('guild-id').value;
+            const statusEl = document.getElementById('guild-status');
+            statusEl.innerText = "Processing guild join request...";
 
-    if(!data.teams || !data.teams.length){
-      box.innerHTML = '<div style="padding:20px;grid-column:1/-1;text-align:center;">No Bulk Squads Created Yet.</div>';
-    }else{
-      box.innerHTML = data.teams.map(t => {
-        sel.innerHTML += `<option value="${t.id}">${t.name} (${t.player_count} Players)</option>`;
-        return `<div class="squad-card">
-          <div class="squad-head">
-            <div class="squad-name">${t.name}</div>
-            <span class="badge">${t.in_guild ? 'GUILD ACTIVE' : 'NO GUILD'}</span>
-          </div>
-          <div style="font-size:12px;color:var(--txt-muted);">Players: ${t.player_count} | Created: ${t.created_at}</div>
-        </div>`;
-      }).join('');
-    }
-
-    // Logs
-    const logBox = $('#logs-box');
-    logBox.innerHTML = data.logs.map(l => `<div class="log-line">
-      <span class="log-time">[${l.time}]</span>
-      <span class="log-msg ${l.level}">${l.message}</span>
-    </div>`).join('');
-    logBox.scrollTop = logBox.scrollHeight;
-  }catch(e){}
-}
-
-async function submitBulkTeams(e){
-  e.preventDefault();
-  const payload = {
-    teams: [{
-      team_name: $('#t1-name').value,
-      players: [
-        {uid: $('#t1p1-uid').value, password: $('#t1p1-pass').value},
-        {uid: $('#t1p2-uid').value, password: $('#t1p2-pass').value},
-        {uid: $('#t1p3-uid').value, password: $('#t1p3-pass').value},
-        {uid: $('#t1p4-uid').value, password: $('#t1p4-pass').value}
-      ]
-    }]
-  };
-  const res = await fetch('/api/teams/bulk_create', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
-  closeBulkModal(); toast('Bulk Squad Created Successfully!'); fetchStats();
-}
-
-async function submitClan(e){
-  e.preventDefault();
-  const res = await fetch('/api/clan/assign', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({clan_id: $('#clan-id').value, team_id: $('#clan-team-select').value})
-  });
-  const data = await res.json();
-  closeClanModal();
-  if(data.status === 'warning'){
-    toast('⚠️ ' + data.message);
-  }else{
-    toast('✅ Clan Joined & Verified!');
-  }
-  fetchStats();
-}
-
-async function clearLogs(){
-  await fetch('/api/logs/clear', {method:'POST'});
-  fetchStats();
-}
-
-setInterval(fetchStats, 3000);
-fetchStats();
-</script>
+            const res = await fetch('/api/join_guild', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ guild_id })
+            });
+            const data = await res.json();
+            statusEl.innerText = JSON.stringify(data);
+        }
+    </script>
 </body>
 </html>
