@@ -1,12 +1,7 @@
 {
-  "APNAR_BD_UID_1": {
+  "8330341878": {
     "uid": "8330341878",
-    "name": "XenoMods",
-    "account_id": "APNAR_ACCOUNT_ID",
-    "open_id": "APNAR_OPEN_ID",
     "access_token": "B1E20FAC3EADF2AAB50459EDA0761EF8148D10FEF4F93912628DE07CD34F3A87",
-    "jwt": "APNAR_JWT_TOKEN",
-    "region": "BD",
-    "created_at": "2026-10-23 12:00:00"
+    "region": "BD"
   }
 }
